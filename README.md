@@ -12,10 +12,10 @@ Features
 How to use
 ----------
 
-```APUbiquitousUserDefaultsEngine * engine = [APUbiquitousUserDefaultsEngine sharedEngine];
-[engine setUbiquitousKeys:[NSSet setWithObjects:@"userPreference", nil]];
-[engine pushUserDefaultsToiCloud];
-[engine start];```
+	APUbiquitousUserDefaultsEngine * engine = [APUbiquitousUserDefaultsEngine sharedEngine];
+	[engine setUbiquitousKeys:[NSSet setWithObjects:@"userPreference", nil]];
+	[engine pushUserDefaultsToiCloud];
+	[engine start];
 
 Licensing
 ---------
