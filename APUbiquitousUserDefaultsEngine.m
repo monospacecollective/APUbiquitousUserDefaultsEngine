@@ -44,7 +44,10 @@
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
         NSUbiquitousKeyValueStore * keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
         [ubiquitousKeys enumerateObjectsUsingBlock:^(NSString * key, BOOL *stop) {
-            [userDefaults setObject:[keyValueStore objectForKey:key] forKey:key];
+            id objectForKey = [keyValueStore objectForKey:key];
+            if (objectForKey) {
+                [userDefaults setObject:objectForKey forKey:key];
+            }
         }];
     }
     return success;
@@ -58,7 +61,10 @@
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
         NSUbiquitousKeyValueStore * keyValueStore = [NSUbiquitousKeyValueStore defaultStore];
         [ubiquitousKeys enumerateObjectsUsingBlock:^(NSString * key, BOOL *stop) {
-            [keyValueStore setObject:[userDefaults objectForKey:key] forKey:key];
+            id objectForKey = [userDefaults objectForKey:key];
+            if (objectForKey) {
+                [keyValueStore setObject:objectForKey forKey:key];
+            }
         }];
     }
     return success;
@@ -81,7 +87,10 @@
                                                              
                                                              // Pull values from iCloud
                                                              [relevantKeys enumerateObjectsUsingBlock:^(NSString * key, BOOL *stop) {
-                                                                 [userDefaults setObject:[keyValueStore objectForKey:key] forKey:key];
+                                                                 id objectForKey = [keyValueStore objectForKey:key];
+                                                                 if (objectForKey) {
+                                                                     [userDefaults setObject:objectForKey forKey:key];
+                                                                 }
                                                              }];
                                                          }];
     
@@ -126,9 +135,8 @@
     NSSet * ubiquitousKeys = [self ubiquitousKeys];
     
     __block BOOL success = YES;
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     [ubiquitousKeys enumerateObjectsUsingBlock:^(NSString * key, BOOL *stop) {
-        if(![key isKindOfClass:[NSString class]] || ![userDefaults objectForKey:key]) {
+        if(![key isKindOfClass:[NSString class]]) {
             success = NO;
         }
     }];
